@@ -10,18 +10,18 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     photo = CloudinaryField('profile_pics/', blank=True)
 
-#     def save_profile(self):
-#         self.save()                   
+    def save_profile(self):
+        self.save()                   
 
-#     def delete_profile(self):
-#         self.delete()
+    def delete_profile(self):
+        self.delete()
     
-#     def __str__(self):
-#         return self.bio
+    def __str__(self):
+        return self.bio
     
-#     class Meta:
-#         verbose_name = 'Profile'
-#         verbose_name_plural = 'Profiles'  
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'  
         
 # class Projects(models.Model):
 #     project_title = models.CharField(max_length=255)
