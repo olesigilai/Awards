@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include,path
 from django_registration.backends.one_step.views import RegistrationView
+
 urlpatterns = [
-    # path('', include ('user.urls')),
+    path('', include ('user.urls')),
     path('admin/', admin.site.urls),
     path('accounts/register/',
-        RegistrationView.as_view(success_url='/profile/'),
+        RegistrationView.as_view(success_url='/'),
         name='django_registration_register'),
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
