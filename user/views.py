@@ -47,20 +47,20 @@ def new_project(request):
 
 
 
-# class ProjectsList(APIView):
-#     def get(self, request, format=None):
-#         all_merch = Projects.objects.all()
-#         serializers = ProjectsSerializer(all_merch, many=True)
-#         return Response(serializers.data)
+class ProjectsList(APIView):
+    def get(self, request, format=None):
+        all_merch = Projects.objects.all()
+        serializers = ProjectsSerializer(all_merch, many=True)
+        return Response(serializers.data)
     
    
-# class ProjectsDescription(APIView):
-#     permission_classes = (IsAdminOrReadOnly,)
-#     def get_projects(self, pk):
-#         try:
-#             return Projects.objects.get(pk=pk)
-#         except Projects.DoesNotExist:
-#             return Http404
+class ProjectsDescription(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get_projects(self, pk):
+        try:
+            return Projects.objects.get(pk=pk)
+        except Projects.DoesNotExist:
+            return Http404
         
 #     def get(self, request, pk, format=None):
 #         project = self.get_projects(pk)
