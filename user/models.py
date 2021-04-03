@@ -23,15 +23,14 @@ class Profile(models.Model):
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'  
         
-# class Projects(models.Model):
-#     project_title = models.CharField(max_length=255)
-#     project_image = CloudinaryField('images')
-#     project_description = models.TextField()
-#     pub_date = models.DateTimeField(auto_now_add=True)
-#     author = models.ForeignKey(User, on_delete=models.CASCADE)
-#     # author_profile = models.ForeignKey(Profile,on_delete=models.CASCADE, blank=True, default='1')
-#     link = models.URLField()
-#     country = CountryField(blank_label='(select country)', default='Kenya')
+class Projects(models.Model):
+    project_title = models.CharField(max_length=255)
+    project_image = CloudinaryField('images')
+    project_description = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    link = models.URLField()
+    country = CountryField(blank_label='(select country)', default='Kenya')
         
 #     def save_project(self):
 #         self.save()
