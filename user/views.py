@@ -19,31 +19,31 @@ def home(request):
     return render(request, 'index.html', {"date": date,"projects":projects})
 
 
-# def get_project_by_id(request, id):
+def get_project_by_id(request, id):
 
-#     try:
-#         project = Projects.objects.get(pk = id)
+    try:
+        project = Projects.objects.get(pk = id)
         
-#     except ObjectDoesNotExist:
-#         raise Http404()    
+    except ObjectDoesNotExist:
+        raise Http404()    
     
-#     return render(request, "project.html", {"project":project})
+    return render(request, "project.html", {"project":project})
 
 
-# # @login_required(login_url='/accounts/login/')
-# def new_project(request):
-#     current_user = request.user
-#     if request.method == 'POST':
-#         form = NewProjectForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form = form.save(commit=False)
-#             form.author = current_user
-#             form.save()
-#         return redirect('index')
+# @login_required(login_url='/accounts/login/')
+def new_project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.author = current_user
+            form.save()
+        return redirect('index')
 
-#     else:
-#         form = NewProjectForm()
-#     return render(request, 'new_project.html', {"form":form})
+    else:
+        form = NewProjectForm()
+    return render(request, 'new_project.html', {"form":form})
 
 
 
