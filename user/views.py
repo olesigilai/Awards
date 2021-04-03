@@ -100,20 +100,20 @@ def search_projects(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html', {"message": message})
     
-# # @login_required(login_url='/accounts/login/')
-# def user_profiles(request):
-#     current_user = request.user
-#     author = current_user
-#     projects = Projects.get_by_author(author)
+# @login_required(login_url='/accounts/login/')
+def user_profiles(request):
+    current_user = request.user
+    author = current_user
+    projects = Projects.get_by_author(author)
     
-#     if request.method == 'POST':
-#         form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.photo)
-#         if form.is_valid():
-#             profile = form.save(commit=False)
-#             profile.save()
-#         return redirect('profile')
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.photo)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.save()
+        return redirect('profile')
         
-#     else:
-#         form = ProfileUpdateForm()    
-#     return render(request, 'django_registration/profile.html', {"form":form, "projects":projects})
+    else:
+        form = ProfileUpdateForm()    
+    return render(request, 'django_registration/profile.html', {"form":form, "projects":projects})
 
