@@ -32,38 +32,38 @@ class Projects(models.Model):
     link = models.URLField()
     country = CountryField(blank_label='(select country)', default='Kenya')
         
-#     def save_project(self):
-#         self.save()
+    def save_project(self):
+        self.save()
     
-#     def delete_project(self):
-#         self.delete()
+    def delete_project(self):
+        self.delete()
         
-#     @classmethod
-#     def get_projects(cls):
-#         projects = cls.objects.all()
-#         return projects
+    @classmethod
+    def get_projects(cls):
+        projects = cls.objects.all()
+        return projects
     
-#     @classmethod
-#     def search_projects(cls, search_term):
-#         projects = cls.objects.filter(project_title__icontains=search_term)
-#         return projects
-    
-    
-#     @classmethod
-#     def get_by_author(cls, author):
-#         projects = cls.objects.filter(author=author)
-#         return projects
+    @classmethod
+    def search_projects(cls, search_term):
+        projects = cls.objects.filter(project_title__icontains=search_term)
+        return projects
     
     
-#     @classmethod
-#     def get_project(request, id):
-#         try:
-#             project = Projects.objects.get(pk = id)
+    @classmethod
+    def get_by_author(cls, author):
+        projects = cls.objects.filter(author=author)
+        return projects
+    
+    
+    @classmethod
+    def get_project(request, id):
+        try:
+            project = Projects.objects.get(pk = id)
             
-#         except ObjectDoesNotExist:
-#             raise Http404()
+        except ObjectDoesNotExist:
+            raise Http404()
         
-#         return project
+        return project
     
-#     def __str__(self):
-#         return self.project_title
+    def __str__(self):
+        return self.project_title
