@@ -5,12 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .models import *
 from .forms import *
-#rest_framework
+from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import *
-from rest_framework import status
-from .permissions import IsAdminOrReadOnly
+
 
 # Create your views here.
 def home(request):
@@ -30,7 +30,7 @@ def get_project_by_id(request, id):
     return render(request, "project.html", {"project":project})
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def new_project(request):
     current_user = request.user
     if request.method == 'POST':
@@ -39,7 +39,7 @@ def new_project(request):
             form = form.save(commit=False)
             form.author = current_user
             form.save()
-        return redirect('index')
+        return redirect('/')
 
     else:
         form = NewProjectForm()
@@ -87,7 +87,7 @@ class ProfileList(APIView):
         serializers = ProfileSerializer(all_merch, many=True)
         return Response(serializers.data)
         
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def search_projects(request):
     if 'keyword' in request.GET and request.GET["keyword"]:
         search_term = request.GET.get("keyword")
@@ -100,20 +100,28 @@ def search_projects(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html', {"message": message})
     
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def user_profiles(request):
     current_user = request.user
     author = current_user
+    profile = Profile.objects.filter(user=current_user).first()
+    # user_profile = Profile.objects.get(user=request.user)
+    print(profile)
     projects = Projects.get_by_author(author)
     
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.photo)
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.save()
+            form.save(commit=False)
+            form.user = request.user
+            form.save()
         return redirect('profile')
         
     else:
-        form = ProfileUpdateForm()    
-    return render(request, 'django_registration/profile.html', {"form":form, "projects":projects})
+        form = ProfileUpdateForm() 
+        context ={"form":form,
+         "projects":projects,
+         "profile": profile
+         }  
+    return render(request, 'django_registration/profile.html', context)
 
