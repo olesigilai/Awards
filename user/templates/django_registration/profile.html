@@ -15,10 +15,30 @@
 </head>
 
 <body>
-    {% include "navbar.html" %}
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+
+
+<br><br>
+
+                <div class="view overlay zoom image2" style="padding-left: 50%; padding-top: 10%;">
+                                {% if profile%}
+                                <br><br>
+                                
+                                    <img class="card-img-top" src="{{profile.photo.url}}"
+                                        alt="{{ profile.user }}" height="300px" width="320">
+                                
+                                {% else %}
+                                
+                                    <img class="card-img-top" src="{% static 'img/user-icon.png'%}"
+                                        alt="{{ profile.user  }}" style="height: 15%; width: 8%; text-align: center;">
+                              
+                                {% endif %}
+                            </div>
+
+
                 {% for project_item in projects %}
 
                 <div class="col-md-6">
