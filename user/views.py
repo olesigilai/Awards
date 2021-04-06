@@ -103,11 +103,13 @@ def search_projects(request):
 @login_required(login_url='/accounts/login/')
 def user_profiles(request):
     current_user = request.user
+    print(current_user)
     author = current_user
     profile = Profile.objects.filter(user=current_user).first()
     # user_profile = Profile.objects.get(user=request.user)
-    print(profile)
+    print(Profile)
     projects = Projects.get_by_author(author)
+    
     
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
