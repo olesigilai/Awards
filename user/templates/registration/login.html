@@ -16,13 +16,19 @@
         </div>
         <div class="panel-body">
 
-          <form  action="/accounts/login/" method="post">
+          <action  action="/accounts/login/" method="post">
             {% csrf_token %}
             {% bootstrap_form form%}
 
             <div class="form-group">
               <input type="submit" class="btn btn-primary btn-sm" value="Login">
+
+
+              
+                <small style=" font-style: italic;">Dont have an acccount?</small> <a  href="/accounts/register/" class="btn btn-primary btn-sm">Register</a>
+              
             </div>
+            </action>
 
             <input type="hidden" name="next" value="{{next}}">
 
